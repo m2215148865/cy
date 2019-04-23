@@ -1,0 +1,33 @@
+{
+  "name": "cy",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "better-scroll": "^1.15.1",
+    "jquery": "^3.3.1",
+    "mockjs": "^1.0.1-beta3",
+    "swiper": "^4.5.0",
+    "vue": "^2.6.6",
+    "vue-baidu-map": "^0.21.20",
+    "vue-bscroll": "^1.0.4",
+    "vue-concise-slider": "^3.3.9",
+    "vue-router": "^3.0.1",
+    "vue-scroller": "^2.2.4",
+    "vue2-preview": "^1.0.5",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.5.3",
+    "@vue/cli-service": "^3.5.3",
+    "lib-flexible": "^0.3.2",
+    "node-sass": "^4.9.0",
+    "postcss-pxtorem": "^4.0.1",
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.5.21"
+  }
+}
