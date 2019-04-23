@@ -244,6 +244,26 @@ const beautifulRuralList = (item,options,target) => {
 	label(item.credit,options.label,"|");
 }
 
+const beautifulRuralGps = (item,options,target) => {
+	let arr = item.gps.split(",");
+	options.gps = {lng: parseFloat(arr[0]), lat: parseFloat(arr[1])};
+	options.title = item.title;
+	options.label = [];
+	label(item.keywords,options.label,"|");
+	options.price = item.price;
+	// console.log(item.images.replace(/\n/g,"").split("<br />"));
+	let imgArr = item.images.replace(/\n/g,"").split("<br />");
+	var string = imgArr[imgArr.length - 1];
+	if(string.length != 1){
+		imgUrl(string.split("|")[1],options,0)
+	}else if(imgArr[imgArr.length - 2].length != 1){
+		imgUrl(imgArr[imgArr.length - 2].split("|")[1],options,0)
+	}else{
+		imgUrl(imgArr[imgArr.length - 3].split("|")[1],options,0);
+	}
+	target.push(options);
+}
+
 
 const addr = (value,target) => {
 	let str = "";
@@ -406,7 +426,8 @@ export default {
 		beautifulRuralList,
 		routeStrategyList,
 		routrInfo,
-		mainScenicSpotsGps
+		mainScenicSpotsGps,
+		beautifulRuralGps
 	},
 	howToPlay: {
 		howToPlayContentList,

@@ -25,6 +25,7 @@
 			:svg="item.id"
 			:name="name"
 			@sceneryClick="scenery"
+			:text="item.title"
 			>
 			</MyOverlay>
 			
@@ -33,6 +34,7 @@
 			@obtainData="coverListData"
 			:mapLeftobj="mapLeftobj"
 			:mapLeftState="mapLeftState"
+			:mapBottom="mapBottom"
 			></mapLeft>
 			<mapBottom
 			:mapBottom="mapBottom"
@@ -74,8 +76,9 @@ export default{
 		mapLeft,
 		mapBottom
 	},
-	updated(){
+	created(){
 		this.$store.dispatch('mainScenicSpotsList');
+		this.$store.dispatch('restaurantList');
 		this.$store.dispatch('mapLeft');
 	},
 	methods: {
@@ -94,33 +97,28 @@ export default{
 					return;
 				}else{
 					this.mapLeftState = false;
+					this.mapBottom = false;
 				}	
 			}
-			
 		},
 		coverListData(list,name){
 			this.coverList = list;
 			this.name = name;
-			console.log(list,name);
+			console.log(name);
 		},
 		obtainId(id){
-			console.log(id);
 		},
 		transmitData(index,name){
-			console.log(name);
+			this.mapLeftobj = this.coverList[index];
 			if(name == "服务"){
-				this.mapLeftobj = this.coverList[index];
 				this.mapLeftState = true;
-				this.$store.dispatch("mapflag",1);
-				setTimeout(() => {
-					this.$store.dispatch("mapflag",0);
-				},0);
 			}else if(name == "景区"){
-				this.mapLeftobj = this.coverList[index];
-				console.log(this.mapLeftobj);
-				this.mapLeftState = true;
-				
+				this.mapBottom = true;
 			}
+			this.$store.dispatch("mapflag",1);
+			setTimeout(() => {
+				this.$store.dispatch("mapflag",0);
+			},0);
 		},
 		scenery(){
 			

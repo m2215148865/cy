@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<ul class="left" v-show="!mapLeftState">
+		<ul class="left" v-show="!mapLeftState" v-if="!mapBottom">
 			<li
 			v-for="item in list"
 			:key="item.id"
@@ -62,7 +62,8 @@ export default{
 	},
 	props: [
 		"mapLeftobj",
-		"mapLeftState"
+		"mapLeftState",
+		"mapBottom"
 	]
 }
 </script>

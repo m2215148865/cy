@@ -14,7 +14,7 @@
 		</div>
 		<div class="box1" v-if="name== '景区'">
 			<div class="mian" @touchend="scenery" ref="div">
-				文字文字文字文字文字
+				{{ text }}
 			</div>
 		</div>
 	</bm-overlay>
@@ -45,13 +45,9 @@ export default {
 			el.style.top = pixel.y + 'px'
 		},
 		scenery(){
-			if(JSON.stringify(this.active) == "{}"){
-				alert(11);
-				this.active = this.$refs.div;
-			}else{
-				alert(22)
+			for(let i = 1; i < this.$refs.div.parentNode.parentNode.parentNode.children.length; i++){
+				this.$refs.div.parentNode.parentNode.parentNode.children[i].children[0].children[0].className = "mian";
 			}
-			console.dir(typeof(this.$refs.div));
 			this.$refs.div.className="mian active";
 		}
 	},

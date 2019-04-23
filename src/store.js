@@ -61,7 +61,8 @@ export default new Vuex.Store({
 			mapLeft: [],
 			bottom: [],
 			botobj: {
-				scenicSpot:[]
+				scenicSpot:[],
+				beautifulRuralGps: []
 			}
 		}
 	},
@@ -94,7 +95,7 @@ export default new Vuex.Store({
 		// 美丽乡村列表
 		restaurantList(state){
 			http("乡村列表").then(res => {
-				dataAnalysis.beautifulRural(res.data,state.SecondIndex,state.imgExhibition);
+				dataAnalysis.beautifulRural(res.data,state.SecondIndex,state.imgExhibition,state.Navigation.botobj.beautifulRuralGps);
 			});
 		},
 		// 路线攻略列表
@@ -245,6 +246,9 @@ export default new Vuex.Store({
 		},
 		scenicSpot(state){
 			return state.Navigation.botobj.scenicSpot;
+		},
+		beautifulRuralGps(state){
+			return state.Navigation.botobj.beautifulRuralGps;
 		}
 	}
 })

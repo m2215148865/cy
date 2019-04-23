@@ -74,19 +74,19 @@ const mainScenicSpots = (value,target,imgExhibition,gsp) => {
 }
 
 // 美丽乡村列表
-const beautifulRural = (value,target,imgExhibition) => {
+const beautifulRural = (value,target,imgExhibition,gsp) => {
 	let id = 1;
 	let num = value.length;
 	value.forEach(item => {
-		console.log(item);
+		// console.log(item);
 		if(target.beautifulRuralList.length < num){
 			let listobj = {}; // 列表
 			listobj.id = id++;
 			dataFunction.SecondIndex.beautifulRuralList(item,listobj,target.beautifulRuralList);
 			let Infoobj = {}; // 详情
 			Infoobj.id = listobj.id;
-			console.log(listobj);
-			console.log(Infoobj);
+			let gpsobj = {};
+			dataFunction.SecondIndex.beautifulRuralGps(item,gpsobj,gsp);
 		}
 	})
 }

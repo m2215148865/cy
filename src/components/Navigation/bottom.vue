@@ -1,23 +1,25 @@
 <template>
-	<div v-show="!mapBottom">
-		<div class="tab">
-			<ul class="list">
-				<li
-				v-for="item in list"
-				:key="item.id"
-				@click="search(item.name,item)" 
-				:class="{active: active==item.name}"
-				ref="haha"
-				>
-					<img :src="item.state? item.url2 : item.url">
-					<span :class="[item.state? 'active' : '']">{{ item.name }}</span>
-				</li>
-			</ul>
+	<div>
+		<div v-show="!mapBottom">
+			<div class="tab">
+				<ul class="list">
+					<li
+					v-for="item in list"
+					:key="item.id"
+					@click="search(item.name,item)"
+					ref="haha"
+					>
+						<img :src="item.falg? item.url2 : item.url">
+						<span :class="[item.falg? 'active' : '']">{{ item.name }}</span>
+					</li>
+				</ul>
+			</div>
+			<transition>
+				<NavigationRight :show="show"></NavigationRight>
+			</transition>
 		</div>
-		<transition>
-			<NavigationRight :show="show"></NavigationRight>
-		</transition>
 		<introduce :mapLeftobj="mapLeftobj" :mapBottom="mapBottom"></introduce>
+		<route :routeState="routeState"></route>
 	</div>
 </template>
 
@@ -25,51 +27,63 @@
 import { NavigationList } from "@/api/index.js";
 import NavigationRight from "@/components/Navigation/right";
 import introduce from "@/components/Navigation/introduce.vue";
+import route from "@/components/Navigation/route.vue";
 export default{
 	data(){
 		return {
 			list: [],
 			active: "",
-			show: false
+			show: false,
+			routeState:false
 		}
 	},
 	created(){
-		console.log(this.mapLeftobj)
 		NavigationList().then(res => {
 			this.list = res.data.data
 		});
+		
 	},
 	methods: {
 		search(name,item){
-			this.active = name;
+			let arr = [];
+			item.name == "景区"? arr = this.$store.getters.scenicSpot : arr = this.$store.getters.beautifulRuralGps
 			this.list.forEach(value => {
-				if(value.name == name){
-					value.state = !value.state;
-				}else{
-					value.state = false;
+				if(value.name != name){
+					value.falg = false;
 				}
 			});
+			item.falg = !item.falg;
+			if(item.falg){
+				console.log(11);
+				this.$emit('obtainData',arr,"景区");
+				console.log(arr);
+			}else{
+				console.log(22);
+				this.$emit('obtainData',[],"景区");
+			}
 			if(item.name != "周边"){
 				this.show = false;
 			}
 			if(item.name == "路线"){
+				this.routeState = !this.routeState;
 				return;
 			}
 			if(item.name == "周边"){
-				if(item.state){
+				if(item.falg){
 					this.show = true;
 				}else{
 					this.show = false;
 				}
 				return;
 			}
-			console.log(this.$store.getters.scenicSpot)
-			this.$emit('obtainData',this.$store.getters.scenicSpot,"景区");
+			
+			
 		}
 	},
 	components: {
 		NavigationRight,
-		introduce
+		introduce,
+		route
 	},
 	props: ["mapBottom","mapLeftobj"]
 }
